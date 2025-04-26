@@ -40,39 +40,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: Padding(
-        padding: const EdgeInsets.only(bottom: 30, top: 30),
-        child: Row(
+        padding: const EdgeInsets.only(bottom: 30, top: 15),
+        child:Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Powered by ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        decoration: TextDecoration.none,
-                        color: Colors.black38,
-                        fontSize: 15),
-                  ),
+            Text.rich(
+              TextSpan(
+                text: 'Powered by ',
+                style: const TextStyle(color: Colors.grey),
+                children: [
                   TextSpan(
                     text: 'M360 ICT',
                     style: TextStyle(
-                        fontSize: 16,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
+                      color: Colors.green[600],
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
             ),
           ],
-        ),
+        ) ,
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 40, left: 24, right: 24),
+          padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -96,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
                             Text("Name",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -113,7 +105,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               },
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
                             Text("Phone Number",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -163,7 +155,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
                             Text("Email",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -182,13 +174,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               },
                               isPassword: true,
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 20),
                             TextFormField(
                               style: TextStyle(
                                 fontSize: 20.0, // Set the font size here
                               ),
                               controller: _passwordController,
                               obscureText: _obscureConfirmPassword,
+
                               decoration: InputDecoration(
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
@@ -199,6 +192,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
                                 ),
+                                contentPadding: EdgeInsets.zero,
+
                                 isDense: true,
                                 hintText: "******",
                                 hintStyle: TextStyle(
@@ -221,7 +216,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         child: _obscureConfirmPassword
                                             ? Image.asset(
                                                 "assets/images/eyebroww.png",
-                                                color: Colors.black38,
+                                                color: notification_body_colors,
                                               )
                                             : Icon(
                                                 Icons.remove_red_eye_rounded),
@@ -235,7 +230,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 return null;
                               },
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 20),
                             TextFormField(
                               style: TextStyle(
                                 fontSize: 20.0, // Set the font size here
@@ -253,6 +248,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       color: Colors.black),
                                 ),
                                 isDense: true,
+                                contentPadding: EdgeInsets.zero,
+
                                 hintText: "******",
                                 hintStyle: TextStyle(
                                   fontSize: 23.0,
@@ -273,7 +270,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         child: _obscurePassword
                                             ? Image.asset(
                                                 "assets/images/eyebroww.png",
-                                                color: Colors.black38,
+                                                color: notification_body_colors,
                                               )
                                             : Icon(
                                                 Icons.remove_red_eye_rounded),
@@ -378,15 +375,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+
                                 Text(
-                                  " have an account? ",
+                                  " have an account?",
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black38),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
-                                  child: Text("Sign Up",
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text("Sign In",
                                       style: TextStyle(
                                           color: activeColor,
                                           fontWeight: FontWeight.bold,

@@ -39,34 +39,26 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       bottomSheet: Padding(
         padding: const EdgeInsets.only(bottom: 30, top: 30),
-        child: Row(
+        child:Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Powered by ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        decoration: TextDecoration.none,
-                        color: Colors.black38,
-                        fontSize: 15),
-                  ),
+            Text.rich(
+              TextSpan(
+                text: 'Powered by ',
+                style: const TextStyle(color: Colors.grey),
+                children: [
                   TextSpan(
                     text: 'M360 ICT',
                     style: TextStyle(
-                        fontSize: 16,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
+                      color: Colors.green[600],
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
             ),
           ],
-        ),
+        ) ,
       ),
       body: SafeArea(
         child: Padding(
@@ -293,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  " have an account? ",
+                                  "Don't have an account?",
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black38),

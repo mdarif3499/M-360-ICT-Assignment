@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../util/Toast.dart';
 import '../../../util/user_securce_storage.dart';
+import '../../../widget/dialog_builder.dart';
 import '../../home/view/home_screen.dart';
 import '../consts/consts.dart';
 import '../screen/login_screen.dart';
@@ -17,10 +18,7 @@ class AuthController extends GetxController {
   TextEditingController loginEmailControler = TextEditingController();
   TextEditingController loginpassControler = TextEditingController();
   TextEditingController conPassControler = TextEditingController();
-  var isReady = true.obs;
-  var isloading = false.obs;
-  var isVisible = true.obs;
-  var profileImagePath = "".obs;
+
   var tableName;
   String language = "";
 
@@ -29,23 +27,29 @@ class AuthController extends GetxController {
   AuthController(this.preference);
 
   Future<UserCredential?> loginMethod(context, {email, password}) async {
+    DialogBuilder(context).showLoadingIndicator();
+
     UserCredential? userCredential;
     try {
-      isloading(true);
+
       userCredential = await auth.signInWithEmailAndPassword(
           email: email,
           password: password);
-      isloading(false);
+
 
       toastmessage("Login  is Successful", color: Colors.blueAccent);
 
+      DialogBuilder(context).hideOpenDialog();
 
         Get.offAllNamed(HomeScreen.pageId);
 
 
     } on FirebaseAuthException catch (e) {
-      isloading(false);
+
+      DialogBuilder(context).hideOpenDialog();
+
       if (e.code == 'user-not-found') {
+
         toastmessage(
           "No user found for that email.",
         );
@@ -55,45 +59,22 @@ class AuthController extends GetxController {
         toastmessage(
           "Wrong password provided.",
         );
+
       } else {
+
         toastmessage(
           "FirebaseAuth error: ${e.code}",
         );
         print("..................${e.toString()}");
+
       }
     }
-    return userCredential;
   }
 
-//   loginCheck(context)async{
-//
-//     var name = await preference.getSecureData(SharedPrefKey.SELECTEDROLE);
-// try{
-//   final querySnapshot = await FirebaseFirestore.instance
-//       .collection(name!)
-//       .where('email', isEqualTo: "${loginEmailControler.text.trim()}")
-//       .get();
-//   if(querySnapshot!=null&&querySnapshot.docs.isNotEmpty){
-//     loginMethod(context: context);
-//     print('.....name{${name}......}....successfull');
-//   }else{
-//     toastmessage(
-//       "You are a not ${name}",
-//     );
-//
-//
-//   }
-// }on Exception catch (e){
-//   toastmessage(
-//     "Exception   ${e}",
-//   );
-// }
-//
-//
-//   }
-  //signup method
+
   signupMethod({context, email, password, conPassword, name, phone}) async {
     UserCredential? userCredential;
+    DialogBuilder(context).showLoadingIndicator();
 
     try {
       userCredential = await auth.createUserWithEmailAndPassword(
@@ -106,7 +87,11 @@ class AuthController extends GetxController {
           password: password.toString(),
           email: email.toString().trim(),
           phone: phone);
+      DialogBuilder(context).hideOpenDialog();
+
     } on FirebaseAuthException catch (e) {
+      DialogBuilder(context).hideOpenDialog();
+
       if (e.code == 'weak-password') {
         toastmessage("The password provided is too weak.");
       } else if (e.code == 'email-already-in-use') {
@@ -117,6 +102,8 @@ class AuthController extends GetxController {
         toastmessage("Firebase Auth error: ${e.message}");
       }
     } catch (e) {
+      DialogBuilder(context).hideOpenDialog();
+
       print('Unexpected error: $e');
     }
   }
@@ -149,18 +136,6 @@ class AuthController extends GetxController {
     }
   }
 
-//signOut method
-//   void sendData() {
-//     FirebaseFirestore.instance.collection('users').add({
-//       'name': 'John Doe',
-//       'email': 'john@example.com',
-//       'created_at': FieldValue.serverTimestamp(),
-//     }).then((docRef) {
-//       print('Document added with ID: ${docRef.id}');
-//     }).catchError((error) {
-//       print('Error adding document: $error');
-//     });
-//   }
 
   clearEditingController() {
     usernameController.clear();
@@ -169,19 +144,6 @@ class AuthController extends GetxController {
     conPassControler.clear();
   }
 
-  setLanguageTeacher(language, name, email) async {
-    User? currentUser1 = auth.currentUser;
-
-    DocumentReference store =
-        await firestore.collection(language.toString()).doc(currentUser1!.uid);
-
-    store.set({
-      'name': name,
-      'id': currentUser1!.uid,
-      'language': language,
-      'email': email,
-    });
-  }
 
   static void singOut() async {
     await auth.signOut();

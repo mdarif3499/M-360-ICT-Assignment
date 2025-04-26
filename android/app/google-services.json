@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1079656371083",
+    "project_id": "ict-assignment-abbb9",
+    "storage_bucket": "ict-assignment-abbb9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079656371083:android:3992bb8ab9a439d485558e",
+        "android_client_info": {
+          "package_name": "com.example.ict_assignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYsmeI-3xQA-is7vT5CllY9grP4WfUN50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
